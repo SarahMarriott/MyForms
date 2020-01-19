@@ -1,0 +1,42 @@
+﻿@model MyFormBuilder.Models.MyFormSubmission
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MyFormSubmission</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUserID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateTimeCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateTimeCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubmittedData)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubmittedData)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

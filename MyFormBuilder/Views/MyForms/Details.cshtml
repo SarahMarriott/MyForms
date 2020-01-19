@@ -1,0 +1,36 @@
+﻿@model MyFormBuilder.Models.MyForm
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<script src="https://formbuilder.online/assets/js/form-render.min.js"></script>
+
+@Scripts.Render("~/bundles/FormRenderJS")
+
+
+
+<h2>Please complete @Model.FormName</h2>
+
+@Html.HiddenFor(m => m.FormLayout)
+@Html.HiddenFor(m => m.Id)
+
+@{Html.BeginForm("SubmitForm", "MyForms", FormMethod.Post, new { @id = "AjaxPostForm" }); }
+
+
+    @Html.ValidationSummary(true)
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div id="fb-render"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <input type="submit">
+        </div>
+    </div>
+
+@{ Html.EndForm(); }
+

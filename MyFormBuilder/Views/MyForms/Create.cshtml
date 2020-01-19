@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<script src="https://formbuilder.online/assets/js/form-builder.min.js"></script>
+
+@Scripts.Render("~/bundles/FormBuilderJS")
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Create a New Form</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h5>Please enter a name for this form</h5>
+        <input type="text" id="txtformName" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="build-wrap"></div>
+    </div>
+</div>

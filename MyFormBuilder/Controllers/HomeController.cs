@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyFormBuilder.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,8 @@ namespace MyFormBuilder.Controllers
 {
     public class HomeController : Controller
     {
+        public MyFormBuilderModel db = new MyFormBuilderModel();
+
         public ActionResult Index()
         {
             return View();
@@ -26,5 +29,6 @@ namespace MyFormBuilder.Controllers
 
             return View();
         }
+
     }
 }

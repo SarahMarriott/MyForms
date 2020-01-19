@@ -90,6 +90,82 @@ namespace MyFormBuilder.Controllers
             }
         }
 
+        public ActionResult ViewSubmissions(int ID) //the form id
+        {
+            //get the submisisons for this form
+            var Submissions = db.MyFormSubmissions.Where(s => s.MyFormId.Id == ID).ToList();
+
+            //get the form details
+            var Form = db.MyForms.Find(ID);
+
+            //get the form data 
+            dynamic FormLayout = JsonConvert.DeserializeObject(Form.FormLayout);
+
+            //store all the required headers in a dictionary object for later
+            IDictionary<string, string> fields = new Dictionary<string, string>();
+            foreach(var layout in FormLayout)
+            {
+                if (layout.type.ToString() != "header" && layout.type.ToString() != "paragraph")
+                {
+                    //an input type
+                    fields.Add(layout.name.ToString(), layout.label.ToString());
+                }
+            }
+
+            //object to store the output
+            List<ViewFormSubmissionsVM> displayList = new List<ViewFormSubmissionsVM>();
+
+            
+            //loop submissions
+            foreach(var submission in Submissions)
+            {
+                ViewFormSubmissionsVM displayItem = new ViewFormSubmissionsVM 
+                {
+                    ApplicationUser = submission.ApplicationUserID,
+                    DateTimeCreated = submission.DateTimeCreated,
+                    FormName = Form.FormName,
+                    Id = submission.Id,
+                };
+
+                //now we have to convert the data
+                dynamic des = JsonConvert.DeserializeObject(submission.SubmittedData);
+
+                List<FormData> formDatas = new List<FormData>();
+
+                //loop each data item (field)
+                foreach(var de in des) {
+                    if (fields.TryGetValue(de.name.ToString(), out string result))
+                    {
+                        //continue       
+                    }
+                    else
+                    {
+                        //can't find a matching field - use the field name
+                        result = de.name.ToString();
+                    }
+                    //add the new field with the submitted data
+                    formDatas.Add(new FormData
+                    {
+                        name = result, //
+                        value = de.value.ToString()
+                    });
+                }
+                //add the form datas
+                displayItem.SubmittedData = formDatas;
+
+                displayList.Add(displayItem);
+            }
+
+            //pass field list 
+            ViewBag.FieldList = fields;
+
+            //form name for display purposes
+            ViewBag.FormName = Form.FormName;
+            //now we have to loop all of the 
+            return View(displayList);
+
+        }
+
         // GET: MyForms/Create
         public ActionResult Create()
         {

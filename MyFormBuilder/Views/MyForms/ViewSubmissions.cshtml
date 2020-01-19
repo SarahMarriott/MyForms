@@ -1,0 +1,56 @@
+﻿@model IEnumerable<MyFormBuilder.ViewModels.ViewFormSubmissionsVM>
+@{
+    ViewBag.Title = "View Submissions";
+}
+
+<div class="row">
+    <div class="col-md-12">
+
+        <h2>View Submissions for @ViewBag.FormName</h2>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped" id="tSubmissions">
+            <thead>
+                <tr>
+                    <th>Submitted By</th>
+                    <th>Submission Date</th>
+                    @foreach(var field in ViewBag.FieldList)
+                    {
+                        <th>@field.value</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var submit in Model)
+                {
+                    <tr>
+                        <th>@submit.ApplicationUser</th>
+                        <th>@submit.DateTimeCreated</th>
+                        @foreach(var field in ViewBag.FieldList)
+                        {
+                            bool found = false;
+                            //find the matching item in the model
+                            foreach(var detail in submit.SubmittedData)
+                            {
+                                if(detail.name == field.key)
+                                {
+                                    <td>@detail.value</td>
+                                    found = true;
+                                }
+                            }
+                            if (found == false)
+                            {
+                                //write out blank if they didn't supply an answer
+                                <td>&nbsp;</td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

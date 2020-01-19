@@ -279,6 +279,7 @@
     <Content Include="Views\MyFormSubmissions\Details.cshtml" />
     <Content Include="Views\MyFormSubmissions\Edit.cshtml" />
     <Content Include="Views\MyFormSubmissions\Index.cshtml" />
+    <Content Include="Views\MyForms\ViewSubmissions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
